@@ -5,8 +5,9 @@ import { Box, Link, Container, Typography } from '@material-ui/core';
 // components
 import Logo from '../../components/Logo';
 //
-import MainNavbar from './MainNavbar';
+// import MainNavbar from './MainNavbar';
 import MainFooter from './MainFooter';
+import MainNavbar from './MainNavbar';
 
 // ----------------------------------------------------------------------
 

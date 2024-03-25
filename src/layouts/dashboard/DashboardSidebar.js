@@ -183,7 +183,6 @@ function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         {isCollapse ? (
           <MyAvatar sx={{ mx: 'auto', mb: 2 }} />
         ) : (
-          <Link underline="none" component={RouterLink} to={PATH_DASHBOARD.user.account}>
             <AccountStyle>
               <MyAvatar />
               <Box sx={{ ml: 2 }}>
@@ -195,12 +194,9 @@ function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
                 </Typography>
               </Box>
             </AccountStyle>
-          </Link>
         )}
       </Stack>
-
       <NavSection navConfig={data} isShow={!isCollapse} />
-
       <Box sx={{ flexGrow: 1 }} />
     </Scrollbar>
   );

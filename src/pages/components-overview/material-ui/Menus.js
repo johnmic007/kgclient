@@ -93,7 +93,7 @@ export default function MenusComponent() {
   };
 
   return (
-    <RootStyle title="Components: Menus | Minimal-UI">
+    <RootStyle title="Components: Menus | KGISL">
       <Box
         sx={{
           pt: 6,

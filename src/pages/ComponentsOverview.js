@@ -24,7 +24,7 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function ComponentsOverview() {
   return (
-    <RootStyle title="Components Overview | Minimal-UI">
+    <RootStyle title="Components Overview | KGISL">
       <ComponentHero />
       <Container maxWidth="lg">
         <ComponentFoundation />

@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import Page from '../../components/Page';
 import { AuthContext } from '../../contexts/JWTContext';
+import { BASE_URL } from '../../utils/axios';
 
 const AddReferals = () => {
   const { user } = useContext(AuthContext);
@@ -26,7 +27,7 @@ const AddReferals = () => {
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      const response = await axios.post('http://localhost:5000/user/createReferral', values);
+      const response = await axios.post(`${BASE_URL}/user/createReferral`, values);
       console.log(response.data);
       alert('Form submitted successfully!');
       resetForm();

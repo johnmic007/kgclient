@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import axios from 'axios'; // Import Axios
 import { AuthContext } from '../../contexts/JWTContext';
+import { BASE_URL } from '../../utils/axios';
 
 const MyReferals = () => {
   const { user } = useContext(AuthContext);
@@ -28,7 +29,7 @@ const MyReferals = () => {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          'http://localhost:5000/user/getmyreferal',
+          `${BASE_URL}/user/getmyreferal`,
           { userId: user._id, page: page + 1, limit: 5 } // Include page and limit in the request body
         );
         console.log(response.data.referrals);

@@ -2,8 +2,6 @@ import React, { Suspense, lazy, useContext } from 'react';
 import { Navigate, useRoutes, useLocation } from 'react-router-dom';
 
 import Leads from '../pages/admin/Leads';
-import MyReferals from '../pages/Referal/MyReferals';
-import AddReferals from '../pages/Referal/AddReferals';
 import Placement from '../pages/placement/Placement';
 
 // layouts
@@ -25,7 +23,11 @@ import TrendingFacts from '../pages/trending-facts/TrendingFacts';
 import TrainersLeaderBoard from '../pages/trainers LeaderBoard/TrainersLeaderBoard';
 import StudentsLifeCycle from '../pages/StudentsLifeCycle/StudentsLifeCycle';
 import ViewMore from '../pages/admin/ViewMore';
+
 import { AuthContext } from '../contexts/JWTContext';
+import MyReferals from '../pages/Referal/MyReferals';
+import AddReferals from '../pages/Referal/AddReferals';
+import  ProfileUs  from '../pages/admin/ProfileUs';
 
 // ----------------------------------------------------------------------
 
@@ -73,6 +75,7 @@ export default function Router() {
     { path: 'leads', element: <Leads /> },
     { path: 'allusers', element: <AllUsers /> },
     { path: '/allusers/user/:userId', element: <ViewMore /> },
+    { path: '/user/profile/:leadId', element: <ProfileUs /> },
     { path: 'analytics', element: <GeneralAnalytics /> },
     {
       path: 'e-commerce',
@@ -142,7 +145,7 @@ export default function Router() {
     { path: 'kanban', element: <Kanban /> }
   ];
 
-  if (user.role === 'user') {
+  if (user && user.role === 'user') {
     children = [{ path: '/', element: <Navigate to="/dashboard/myreferals" replace /> }, ...children];
   }
 

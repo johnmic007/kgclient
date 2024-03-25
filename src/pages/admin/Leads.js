@@ -20,6 +20,7 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import LeadDetails from './LeadsDetails';
+import { BASE_URL } from '../../utils/axios';
 
 const Leads = () => {
   const [selectedLeadId, setSelectedLeadId] = useState(null);
@@ -33,7 +34,7 @@ const Leads = () => {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          'http://localhost:5000/user/getAllReferals',
+          `${BASE_URL}/user/getAllReferals`,
           { page: page + 1, limit: 5 } // Include page and limit in the request body
         );
         console.log(response);
@@ -102,7 +103,9 @@ const Leads = () => {
               {leadsData.map((lead) => (
                 <React.Fragment key={lead._id}>
                   <TableRow>
-                    <TableCell>{lead.friendName}</TableCell>
+                    <TableCell>
+                      <a href={`/dashboard/user/profile/${lead._id}`}>{lead.friendName}</a>
+                    </TableCell>
                     <TableCell>{lead.email}</TableCell>
                     <TableCell>
                       <div

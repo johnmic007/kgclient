@@ -26,7 +26,7 @@ export default function AvatarComponent() {
   const theme = useTheme();
 
   return (
-    <RootStyle title="Components: Avatar | Minimal-UI">
+    <RootStyle title="Components: Avatar | KGISL">
       <Box
         sx={{
           pt: 6,

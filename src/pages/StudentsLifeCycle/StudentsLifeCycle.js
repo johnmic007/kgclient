@@ -160,7 +160,7 @@ const StudentsLifeCycle = () => {
   };
 
   return (
-    <Page title="General: Banking | Minimal-UI">
+    <Page title="General: Banking | KGISL">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Typography variant="h3" className={classes.heading}>
           Students Life Cycle

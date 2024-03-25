@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
+import { useState } from 'react';
 import { useSnackbar } from 'notistack5';
 import { useFormik, Form, FormikProvider } from 'formik';
 import * as Yup from 'yup';
@@ -12,6 +12,7 @@ import { LoadingButton } from '@material-ui/lab';
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 import { MIconButton } from '../../@material-extend';
+import { BASE_URL } from '../../../utils/axios';
 
 export default function RegisterForm() {
   const { register } = useAuth();
@@ -29,7 +30,7 @@ export default function RegisterForm() {
       then: Yup.string().required('Batch is required')
     }),
     courseEnrolled: Yup.boolean().required('Course enrollment status is required'),
-    course: Yup.string().required('Course is required')
+    // course: Yup.string().required('Course is required')
   });
 
   const formik = useFormik({
@@ -46,7 +47,7 @@ export default function RegisterForm() {
     onSubmit: async (values, { setErrors, setSubmitting }) => {
       console.log(values);
       try {
-        const response = await axios.post('http://localhost:5000/auth/register', {
+        const response = await axios.post(`${BASE_URL}/auth/register`, {
           name: values.name,
           city: values.city,
           email: values.email,
@@ -56,6 +57,7 @@ export default function RegisterForm() {
           password: values.password,
           course: values.course
         });
+        window.location.href = '/auth/login';
         enqueueSnackbar('Register success', {
           variant: 'success',
           action: (key) => (
@@ -112,6 +114,18 @@ export default function RegisterForm() {
             helperText={touched.city && errors.city}
           />
 
+          <TextField
+            select
+            fullWidth
+            label="Course Enrolled"
+            {...getFieldProps('courseEnrolled')}
+            error={Boolean(touched.courseEnrolled && errors.courseEnrolled)}
+            helperText={touched.courseEnrolled && errors.courseEnrolled}
+          >
+            <MenuItem value="true">Yes</MenuItem>
+            <MenuItem value="false">No</MenuItem>
+          </TextField>
+
           {formik.values.courseEnrolled === 'true' && (
             <>
               <TextField
@@ -137,18 +151,6 @@ export default function RegisterForm() {
               />
             </>
           )}
-
-          <TextField
-            select
-            fullWidth
-            label="Course Enrolled"
-            {...getFieldProps('courseEnrolled')}
-            error={Boolean(touched.courseEnrolled && errors.courseEnrolled)}
-            helperText={touched.courseEnrolled && errors.courseEnrolled}
-          >
-            <MenuItem value="true">Yes</MenuItem>
-            <MenuItem value="false">No</MenuItem>
-          </TextField>
 
           <TextField
             fullWidth

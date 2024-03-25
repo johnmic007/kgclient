@@ -56,11 +56,11 @@ export default function Login() {
   };
 
   return (
-    <RootStyle title="Login | Minimal-UI">
+    <RootStyle title="Login | KGISL">
       <AuthLayout>
         Don’t have an account? &nbsp;
         <Link underline="none" variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-          Get started
+         Create an account
         </Link>
       </AuthLayout>
 
@@ -102,7 +102,7 @@ export default function Login() {
             <Typography variant="body2" align="center" sx={{ mt: 3 }}>
               Don’t have an account?&nbsp;
               <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-                Get started
+                Create an account
               </Link>
             </Typography>
           </MHidden>

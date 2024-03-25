@@ -12,8 +12,10 @@ import AuthLayout from '../../layouts/AuthLayout';
 // components
 import Page from '../../components/Page';
 import { MHidden } from '../../components/@material-extend';
-import { RegisterForm } from '../../components/authentication/register';
+// import { RegisterForm } from '../../components/authentication/register';
 import AuthFirebaseSocials from '../../components/authentication/AuthFirebaseSocial';
+import { RegisterForm } from '../../components/authentication/register';
+
 
 // ----------------------------------------------------------------------
 
@@ -48,7 +50,7 @@ export default function Register() {
   const { method } = useAuth();
 
   return (
-    <RootStyle title="Register | Minimal-UI">
+    <RootStyle title="Register | KGISL">
       <AuthLayout>
         Already have an account? &nbsp;
         <Link underline="none" variant="subtitle2" component={RouterLink} to={PATH_AUTH.login}>
@@ -70,7 +72,7 @@ export default function Register() {
           <Box sx={{ mb: 5, display: 'flex', alignItems: 'center' }}>
             <Box sx={{ flexGrow: 1 }}>
               <Typography variant="h4" gutterBottom>
-                Get started
+                Get Create an account
               </Typography>
             </Box>
             <Tooltip title={capitalCase(method)}>
@@ -84,13 +86,13 @@ export default function Register() {
 
           <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
             By registering, I agree to KGISL &nbsp;
-            <Link underline="always" color="text.primary" href="#">
+            {/* <Link underline="always" color="text.primary" href="#">
               Terms of Service
             </Link>
             &nbsp;and&nbsp;
             <Link underline="always" color="text.primary" href="#">
               Privacy Policy
-            </Link>
+            </Link> */}
             .
           </Typography>
 

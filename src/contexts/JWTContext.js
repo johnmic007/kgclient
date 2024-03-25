@@ -1,17 +1,21 @@
+// AuthProvider.js
 import { createContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { isValidToken, setSession } from '../utils/jwt';
+import { setSession, isValidToken } from '../utils/jwt';
+import { BASE_URL } from '../utils/axios';
 
 const initialState = {
   isAuthenticated: false,
   isInitialized: false,
-  user: null
+  user: null,
+  success: null,
+  message: false,
 };
 
 const handlers = {
   INITIALIZE: (state, action) => {
-    const { isAuthenticated, user } = action.payload;
+    const { isAuthenticated, user } = action.payload || { isAuthenticated: true, user: 'l' };
     return {
       ...state,
       isAuthenticated,
@@ -20,12 +24,15 @@ const handlers = {
     };
   },
   LOGIN: (state, action) => {
-    const { user } = action.payload;
+    
+    const { user, success, message } = action.payload;
 
     return {
       ...state,
       isAuthenticated: true,
-      user
+      user,
+      success,
+      message
     };
   },
   LOGOUT: (state) => ({
@@ -104,22 +111,25 @@ function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:5000/auth/login', {
+      const response = await axios.post(`${BASE_URL}/auth/login`, {
         email,
         password
       });
-      console.log(response);
-      const { accessToken, user } = response.data;
+      const { accessToken, user, success, message } = response.data;
       setSession(accessToken);
 
       // Save user details in local storage
       window.localStorage.setItem('accessToken', accessToken);
       window.localStorage.setItem('user', JSON.stringify(user));
+      window.localStorage.setItem('message', JSON.stringify(message));
+      window.localStorage.setItem('success', JSON.stringify(success));
 
       dispatch({
         type: 'LOGIN',
         payload: {
-          user
+          user,
+          success,
+          message
         }
       });
     } catch (error) {

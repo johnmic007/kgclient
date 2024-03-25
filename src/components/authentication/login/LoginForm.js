@@ -1,3 +1,4 @@
+// LoginForm.js
 import * as Yup from 'yup';
 import { useContext, useState } from 'react';
 import { useSnackbar } from 'notistack5';
@@ -12,32 +13,26 @@ import {
   Link,
   Stack,
   Alert,
-  Checkbox,
   TextField,
   IconButton,
-  InputAdornment,
-  FormControlLabel
+  InputAdornment
 } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
-import { AuthContext } from '../../../contexts/JWTContext';
-// routes
-import { PATH_AUTH } from '../../../routes/paths';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 //
 import { MIconButton } from '../../@material-extend';
-
-// ----------------------------------------------------------------------
+import { AuthContext } from '../../../contexts/JWTContext';
+import { PATH_AUTH } from '../../../routes/paths';
 
 export default function LoginForm() {
   const { login } = useAuth();
   const isMountedRef = useIsMountedRef();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
-  const { user } = useContext(AuthContext);
-  console.log(user);
-
+  const { user, message, success, isAuthenticated } = useContext(AuthContext);
+   console.log(user, message, success, isAuthenticated)
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required')
@@ -53,7 +48,7 @@ export default function LoginForm() {
     onSubmit: async (values, { setErrors, setSubmitting, resetForm }) => {
       try {
         await login(values.email, values.password);
-        enqueueSnackbar('Login success', {
+        enqueueSnackbar(message, {
           variant: 'success',
           action: (key) => (
             <MIconButton size="small" onClick={() => closeSnackbar(key)}>
@@ -75,7 +70,7 @@ export default function LoginForm() {
     }
   });
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
+  const { errors, touched, isSubmitting, handleSubmit, getFieldProps } = formik;
 
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
@@ -118,11 +113,6 @@ export default function LoginForm() {
         </Stack>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-          <FormControlLabel
-            control={<Checkbox {...getFieldProps('remember')} checked={values.remember} />}
-            label="Remember me"
-          />
-
           <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
             Forgot password?
           </Link>

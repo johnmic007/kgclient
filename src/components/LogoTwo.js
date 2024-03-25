@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import { useTheme } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
-import logoImage from '../assets/micro-logo.png'; // Import the logo image
+import logoImage from '../assets/micro new logowhite-02-01-01.png'; // Import the logo image
 
-Logo.propTypes = {
+LogoTwo.propTypes = {
   sx: PropTypes.object
 };
 
-export default function Logo({ sx }) {
+export default function LogoTwo({ sx }) {
   const theme = useTheme();
 
   return (
@@ -15,7 +15,6 @@ export default function Logo({ sx }) {
       sx={{
         width: 220,
         borderRadius: 2,
-        backgroundColor: 'white',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

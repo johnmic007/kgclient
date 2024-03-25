@@ -1,27 +1,43 @@
-import { motion } from 'framer-motion';
-// material
 import { styled } from '@material-ui/core/styles';
-import { Button, Box, Container, Typography } from '@material-ui/core';
-//
-import { varFadeInDown, varFadeInUp, MotionInView } from '../../animate';
+import { Box, Container, Typography } from '@material-ui/core';
 
 // ----------------------------------------------------------------------
 
 const ContentStyle = styled('div')(({ theme }) => ({
-  maxWidth: 456,
+  width: '68%',
+  height: '140px',
   margin: 'auto',
   overflow: 'hidden',
+  padding: '20px 40px',
   paddingBottom: theme.spacing(10),
   borderRadius: theme.shape.borderRadiusMd,
-  backgroundImage: `linear-gradient(135deg,
-    ${theme.palette.primary.main} 0%,
-    ${theme.palette.primary.dark} 100%)`,
-  [theme.breakpoints.up('md')]: {
+  backgroundImage: 'linear-gradient(to right top, #051937, #002253, #002a70, #04318d, #2436aa)',
+  cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: '#1c1055',
+  },
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  textAlign: 'center',
+  [theme.breakpoints.down('md')]: {
+    width: '60%',
+    height: '140px',
+    padding: '20px 20px',
     display: 'flex',
-    maxWidth: '100%',
-    paddingBottom: 0,
-    alignItems: 'center'
-  }
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+  },
+  [theme.breakpoints.down('sm')]: {
+    width: '100%', // Adjusted for small screens
+    height: '140px',
+    padding: '20px 20px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+  },
 }));
 
 // ----------------------------------------------------------------------
@@ -30,46 +46,10 @@ export default function LandingAdvertisement() {
   return (
     <Container maxWidth="lg">
       <ContentStyle>
-        <MotionInView
-          variants={varFadeInUp}
-          sx={{
-            mb: { xs: 3, md: 0 }
-          }}
-        >
-          <motion.div animate={{ y: [-20, 0, -20] }} transition={{ duration: 4, repeat: Infinity }}>
-            <Box component="img" alt="rocket" src="/static/home/rocket.png" sx={{ maxWidth: 460, width: 1 }} />
-          </motion.div>
-        </MotionInView>
-
-        <Box
-          sx={{
-            pl: { md: 10 },
-            textAlign: { xs: 'center', md: 'left' }
-          }}
-        >
-          <MotionInView variants={varFadeInDown} sx={{ color: 'common.white', mb: 2 }}>
-            <Typography variant="h5"> Empowering Tomorrow's Innovators Today. </Typography>
-          </MotionInView>
-          <MotionInView variants={varFadeInDown}>
-            <Button
-              size="large"
-              variant="contained"
-              target="_blank"
-              href="https://material-ui.com/store/items/minimal-dashboard/"
-              sx={{
-                whiteSpace: 'nowrap',
-                boxShadow: (theme) => theme.customShadows.z8,
-                color: (theme) => theme.palette.getContrastText(theme.palette.common.white),
-                bgcolor: 'common.white',
-                '&:hover': { bgcolor: 'grey.300' }
-              }}
-            >
-              Contact Us
-            </Button>
-            <Typography variant="h5" sx={{ color: 'common.white', mt: 2 }}>
-              to Start Your Journey with the Latest in Technology.
-            </Typography>
-          </MotionInView>
+        <Box sx={{display: 'flex' , justifyContent: 'center' , alignItems: 'center' , width: '100%', height: '100%'}}>
+          <Typography variant="h3" sx={{ color: 'common.white', margin: 'auto' }}>
+            Refer More Friends, Get More Rewards, Repeat!
+          </Typography>
         </Box>
       </ContentStyle>
     </Container>

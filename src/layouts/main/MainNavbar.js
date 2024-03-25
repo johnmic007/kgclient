@@ -1,19 +1,14 @@
 import { NavLink as RouterLink, useLocation } from 'react-router-dom';
-// material
 import { styled } from '@material-ui/core/styles';
-import { Box, Button, AppBar, Toolbar, Container } from '@material-ui/core';
-// hooks
+import { Box, Button, AppBar, Toolbar, Container, Typography } from '@material-ui/core';
 import useOffSetTop from '../../hooks/useOffSetTop';
-// components
-import Logo from '../../components/Logo';
-import Label from '../../components/Label';
 import { MHidden } from '../../components/@material-extend';
-//
 import MenuDesktop from './MenuDesktop';
 import MenuMobile from './MenuMobile';
 import navConfig from './MenuConfig';
-
-// ----------------------------------------------------------------------
+import { PATH_AUTH } from '../../routes/paths';
+import LogoTwo from '../../components/LogoTwo';
+import Logo from '../../components/Logo'; 
 
 const APP_BAR_MOBILE = 84;
 const APP_BAR_DESKTOP = 120;
@@ -42,8 +37,6 @@ const ToolbarShadowStyle = styled('div')(({ theme }) => ({
   boxShadow: theme.customShadows.z8
 }));
 
-// ----------------------------------------------------------------------
-
 export default function MainNavbar() {
   const isOffset = useOffSetTop(100);
   const { pathname } = useLocation();
@@ -68,22 +61,32 @@ export default function MainNavbar() {
             justifyContent: 'space-between'
           }}
         >
-          <RouterLink to="/">
-            <Logo />
-          </RouterLink>
+          {isOffset ? <Logo /> : <LogoTwo />}
+
           <Box sx={{ flexGrow: 1 }} />
 
           <MHidden width="mdDown">
             <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />
           </MHidden>
 
-          <Button
-            variant="contained"
-            href="http://localhost:3000/auth/login"
-            sx={{ bgcolor: 'rgb(255, 186, 0)', color: 'text.primary', height: 45 }}
-          >
-            Sign In
-          </Button>
+          {/* <RouterLink to='https://kgmreferral.blomma.in/app/login' style={{ textDecoration: 'none' }}> */}
+            <Button
+            href="http://referral.microcollege.in/app" target="_blank"  
+
+              variant="contained"
+              sx={{
+                bgcolor: 'rgb(255, 186, 0)',
+                color: 'text.primary',
+                height: 45,
+                '&:hover': {
+                  opacity: 0.8,
+                  bgcolor: 'rgb(255, 186, 0)',
+                },
+              }}
+            >
+              Sign In
+            </Button>
+          {/* </RouterLink> */}
 
           <MHidden width="mdUp">
             <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />

@@ -28,8 +28,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 }));
 
 const ScreenStyle = styled(MotionInView)(({ theme }) => ({
-  paddingRight: 2,
-  paddingBottom: 1,
+  padding : 10,
   maxWidth: 360,
   borderRadius: 8,
   backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 300 : 800],
@@ -43,8 +42,12 @@ const ScreenStyle = styled(MotionInView)(({ theme }) => ({
     [theme.breakpoints.up('sm')]: {
       borderRadius: 12
     }
+  },
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: 220
   }
 }));
+
 
 const COMMON = {
   scaleX: 0.86,
@@ -88,20 +91,9 @@ export default function LandingHugePackElements() {
             <ContentStyle>
               <MotionInView variants={varFadeInUp}>
                 <Typography variant="h2" sx={{ mb: 3 }}>
-                  Refer a Friend and earn gifts <br />
+                  Refer for big rewards  <br />
                 </Typography>
               </MotionInView>
-
-              {/* <MotionInView variants={varFadeInUp}>
-                <Typography
-                  sx={{
-                    mb: 5,
-                    color: isLight ? 'text.secondary' : 'common.white'
-                  }}
-                >
-                  Go big! Complete three successful referrals, you can win a Smartwatch or a Lenovo Tab.
-                </Typography>
-              </MotionInView> */}
             </ContentStyle>
           </Grid>
 

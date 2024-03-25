@@ -30,7 +30,8 @@ export const PATH_PAGE = {
   page404: '/404',
   page500: '/500',
   components: '/components',
-  viewMore: '/user/:id'
+  viewMore: '/user/:id',
+  profile: '/user/profile/:lead._id'
 };
 
 export const PATH_DASHBOARD = {
@@ -49,7 +50,9 @@ export const PATH_DASHBOARD = {
     addReferals: path(ROOTS_DASHBOARD, '/addreferals'),
     leads: path(ROOTS_DASHBOARD, '/leads'),
     allUsers: path(ROOTS_DASHBOARD, '/allusers'),
-    viewMore: path(ROOTS_DASHBOARD, '/allusers/user/:userId')
+    viewMore: path(ROOTS_DASHBOARD, '/allusers/user/:userId'),
+    profile: path(ROOTS_DASHBOARD, '/user/profile/:lead._id')
+
   },
   mail: {
     root: path(ROOTS_DASHBOARD, '/mail'),

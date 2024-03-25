@@ -89,28 +89,6 @@ export default function AccountGeneral() {
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
             <Card sx={{ py: 10, px: 3, textAlign: 'center' }}>
-              <UploadAvatar
-                accept="image/*"
-                file={values.photoURL}
-                maxSize={3145728}
-                onDrop={handleDrop}
-                error={Boolean(touched.photoURL && errors.photoURL)}
-                caption={
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      mt: 2,
-                      mx: 'auto',
-                      display: 'block',
-                      textAlign: 'center',
-                      color: 'text.secondary'
-                    }}
-                  >
-                    Allowed *.jpeg, *.jpg, *.png, *.gif
-                    <br /> max size of {fData(3145728)}
-                  </Typography>
-                }
-              />
 
               <FormHelperText error sx={{ px: 2, textAlign: 'center' }}>
                 {touched.photoURL && errors.photoURL}

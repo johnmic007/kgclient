@@ -1,13 +1,7 @@
 import { Icon } from '@iconify/react';
 import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
-// material
 import { Accordion, Typography, AccordionSummary, AccordionDetails } from '@material-ui/core';
-// utils
-// import mockData from '../../../utils/mock-data'; // Remove this line
-//
 import { varFadeIn, MotionInView } from '../../animate';
-
-// ----------------------------------------------------------------------
 
 const faqData = {
   FAQ: [
@@ -40,12 +34,12 @@ export default function FaqsList() {
   return (
     <MotionInView variants={varFadeIn}>
       {faqData.FAQ.map((faq, index) => (
-        <Accordion key={index}>
+        <Accordion key={index} sx={{ mt: 2, mb: 3 }}>
           <AccordionSummary expandIcon={<Icon icon={arrowIosDownwardFill} width={20} height={20} />}>
-            <Typography variant="subtitle1">{faq.Question}</Typography>
+            <Typography variant="h5">{faq.Question}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>{faq.Answer}</Typography>
+            <Typography style={{ fontSize: 18 }}>{faq.Answer}</Typography>
           </AccordionDetails>
         </Accordion>
       ))}

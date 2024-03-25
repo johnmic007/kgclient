@@ -89,7 +89,7 @@ function GetFontInfo({ name }) {
 
 export default function FoundationTypography() {
   return (
-    <RootStyle title="Foundations: Typography | Minimal-UI">
+    <RootStyle title="Foundations: Typography | KGISL">
       <Box
         sx={{
           pt: 6,

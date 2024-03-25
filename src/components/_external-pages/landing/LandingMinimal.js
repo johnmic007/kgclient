@@ -9,18 +9,18 @@ import { varFadeInUp, MotionInView, varFadeInDown } from '../../animate';
 const CARDS = [
   {
     icon: '/static/icons/signup.png',
-    title: 'Create an account ',
-    description: 'Sign up for an account to start referring your friends and earning rewards.'
+    title: 'Sign Up ',
+    description: 'Sign up and refer your friends or family',
   },
   {
     icon: '/static/icons/users.png',
-    title: 'Start refer',
-    description: 'Refer your friends to KGiSL Microcollege and earn rewards for each successful referral.'
+    title: 'Complete',
+    description: 'Your referrals successfully enroll in our courses and start classes.',
   },
   {
     icon: '/static/icons/reward-card.png',
     title: 'Earn rewards',
-    description: 'Earn exciting rewards for each successful referral made through your unique referral link.'
+    description: 'Receive your reward within 15 days. ',
   }
 ];
 
@@ -41,7 +41,7 @@ const CardStyle = styled(Card)(({ theme }) => {
 
   return {
     maxWidth: 380,
-    minHeight: 440,
+    minHeight: 380, // Adjusted height for the card
     margin: 'auto',
     textAlign: 'center',
     padding: theme.spacing(10, 5, 0),

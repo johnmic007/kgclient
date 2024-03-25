@@ -12,6 +12,7 @@ import {
 import LandingHugePackElementsTwo from '../components/_external-pages/landing/LandingHugePackElementsTwo';
 import { FaqsList } from '../components/_external-pages/faqs';
 import Faqs from './Faqs';
+import ContactSection from '../components/_external-pages/landing/ContactSection';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Page)({
@@ -28,16 +29,18 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function LandingPage() {
   return (
-    <RootStyle title="The starting point for your next project | Minimal-UI" id="move_top">
+    <RootStyle title="The starting point for your next project | KGISL" id="move_top">
       <LandingHero />
       <ContentStyle>
         <LandingHugePackElements />
+        <LandingPricingPlans />
         <LandingMinimal />
         {/* <LandingHugePackElementsTwo /> */}
         {/* <LandingAdvertisement /> */}
         {/* <FaqsList /> */}
-        {/* <Faqs /> */}
-        <LandingPricingPlans />
+        <LandingAdvertisement />
+        <Faqs />
+        <ContactSection />
       </ContentStyle>
     </RootStyle>
   );

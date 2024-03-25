@@ -12,9 +12,11 @@ import {
   CardContent,
   TablePagination,
   Typography,
-  Checkbox // Import Checkbox component
+  Select,
+  MenuItem
 } from '@material-ui/core';
 import axios from 'axios';
+import { BASE_URL } from '../../utils/axios';
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
@@ -23,21 +25,22 @@ const AllUsers = () => {
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post('http://localhost:5000/user/getallusers', {
-          page: page + 1,
-          perPage: 10,
-          sortAscending
-        });
-        setUsers(response.data.users);
-        setTotalPages(response.data.totalPages - 1);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
     fetchData();
   }, [sortAscending, page]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.post(`${BASE_URL}/user/getallusers`, {
+        page: page + 1,
+        perPage: 10,
+        sortAscending
+      });
+      setUsers(response.data.users);
+      setTotalPages(response.data.totalPages - 1);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   const handleViewMore = (userId) => {
     window.location.href = `/dashboard/allusers/user/${userId}`;
@@ -64,6 +67,20 @@ const AllUsers = () => {
     setPage((prevPage) => Math.min(prevPage + 1, totalPages - 1));
   };
 
+  const handleStatusChange = async (userId, value) => {
+    try {
+      await axios.post(`${BASE_URL}/user/editstatus`, { courseEnrolled: value, userId });
+      const updatedUsers = users.map((user) =>
+        user._id === userId ? { ...user, courseEnrolled: value === 'Yes' } : user
+      );
+      setUsers(updatedUsers);
+      console.log('Course enrollment status updated successfully');
+      fetchData(); // Reload data after updating status
+    } catch (error) {
+      console.error('Error updating course enrollment status:', error);
+    }
+  };
+
   return (
     <Card>
       <Typography variant="h3" component="h2">
@@ -77,7 +94,7 @@ const AllUsers = () => {
                 <TableCell>Name</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>No Of Referrals</TableCell>
-                <TableCell>Course Enrolled</TableCell> {/* Add Course Enrolled column */}
+                <TableCell>Course Enrolled</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
@@ -88,12 +105,17 @@ const AllUsers = () => {
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.numberOfReferrals}</TableCell>
                   <TableCell>
-                    {/* Render a checkbox, and check it if user is enrolled */}
-                    <Checkbox checked={user.courseEnrolled} disabled />
+                    <Select
+                      value={user.courseEnrolled ? 'Yes' : 'No'}
+                      onChange={(event) => handleStatusChange(user._id, event.target.value)}
+                    >
+                      <MenuItem value="Yes">Yes</MenuItem>
+                      <MenuItem value="No">No</MenuItem>
+                    </Select>
                   </TableCell>
                   <TableCell>
                     <Button variant="contained" color="primary" onClick={() => handleViewMore(user._id)}>
-                      View more
+                      View
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -120,7 +142,7 @@ const AllUsers = () => {
                   {pageNum + 1}
                 </Button>
               ))}
-              <Button onClick={() => setPage(handleNextPage)} disabled={page === totalPages - 1}>
+              <Button onClick={handleNextPage} disabled={page === totalPages - 1}>
                 Next
               </Button>
             </div>

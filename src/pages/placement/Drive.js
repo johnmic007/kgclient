@@ -33,7 +33,7 @@ const Drive = () => {
 
   return (
     <>
-      <Page title="Blog: New Post | Minimal-UI">
+      <Page title="Blog: New Post | KGISL">
         <Container maxWidth="lg">
           <Typography variant="h3" gutterBottom>
             Drive

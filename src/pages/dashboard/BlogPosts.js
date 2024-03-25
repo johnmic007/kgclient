@@ -72,7 +72,7 @@ export default function BlogPosts() {
   };
 
   return (
-    <Page title="Blog: Posts | Minimal-UI">
+    <Page title="Blog: Posts | KGISL">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Blog"

@@ -10,3 +10,6 @@ axiosInstance.interceptors.response.use(
 );
 
 export default axiosInstance;
+
+export const BASE_URL ="https://kgserver.onrender.com"
+

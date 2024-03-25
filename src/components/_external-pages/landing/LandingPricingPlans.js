@@ -1,30 +1,29 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
 import checkmarkFill from '@iconify/icons-eva/checkmark-fill';
-import chevronRightFill from '@iconify/icons-eva/chevron-right-fill';
-// material
-import { useTheme, styled, alpha } from '@material-ui/core/styles';
-import { Box, Grid, Card, Link, Stack, Button, Divider, Container, Typography } from '@material-ui/core';
-//
-import { varFadeIn, varFadeInUp, MotionInView, varFadeInDown } from '../../animate';
-import Faqs from '../../../pages/Faqs';
+import { useTheme, styled, alpha, Box, Card, Stack, Divider, Typography, Button, Container, Grid } from '@material-ui/core';
 
-// ----------------------------------------------------------------------
-
-const LICENSES = ['Refer 1 friend', 'Refer 3 friend', 'Extended'];
+const LICENSES = ['Refer 1 friend', 'Refer 3 friends', 'Refer 5 or more'];
 
 const PLANS = [
   {
     license: LICENSES[0],
-    commons: ['Win a 2000 simple as it gets Bring your friend into our course and earn 300'],
+    commons: ['Simple as it gets. Bring a friend into any of our courses, and earn a cash prize of ₹2,000'],
     options: [],
-    icons: ['static/home/rupee.png', 'static/home/giftbox.png']
+    icons: ['static/home/rupee.png']
   },
   {
     license: LICENSES[1],
-    commons: ['Go big complete three sucessfull referrals and you can win a smartphone or a Lenovo Tab'],
+    commons: ['Go big! Complete 3 successful referrals, you can win a Smartwatch worth ₹8000.'],
     options: [],
-    icons: ['static/home/smartwatch.png', 'static/home/ipad.png']
+    icons: ['static/home/smartwatch.png']
+  },
+  {
+    license: LICENSES[2],
+    commons: ['Go bigger! Refer 5 or more friends successfully and win a Lenovo Tab or Smartphone worth ₹15000!'],
+    options: [],
+    icons: ['static/home/ipad.png']
   }
 ];
 
@@ -35,19 +34,17 @@ const RootStyle = styled('div')(({ theme }) => ({
   }
 }));
 
-// ----------------------------------------------------------------------
-
 PlanCard.propTypes = {
-  cardIndex: PropTypes.number,
   plan: PropTypes.shape({
-    license: PropTypes.any,
+    license: PropTypes.string,
     commons: PropTypes.arrayOf(PropTypes.string),
     icons: PropTypes.arrayOf(PropTypes.string),
     options: PropTypes.arrayOf(PropTypes.string)
-  })
+  }).isRequired,
+  indexp: PropTypes.number.isRequired
 };
 
-function PlanCard({ plan, cardIndex }) {
+function PlanCard({ plan, indexp }) {
   const theme = useTheme();
   const { license, commons, options, icons } = plan;
 
@@ -57,12 +54,11 @@ function PlanCard({ plan, cardIndex }) {
     <Card
       sx={{
         p: 5,
-        boxShadow: (theme) =>
-          `0px 48px 80px ${alpha(isLight ? theme.palette.grey[500] : theme.palette.common.black, 0.12)}`,
-        ...(cardIndex === 1 && {
-          boxShadow: (theme) =>
-            `0px 48px 80px ${alpha(isLight ? theme.palette.grey[500] : theme.palette.common.black, 0.48)}`
-        })
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        backgroundImage: 'linear-gradient(to right top, #051937, #002253, #002a70, #04318d, #2436aa)',
+        boxShadow: (theme) => `0px 48px 80px ${alpha(isLight ? theme.palette.grey[500] : theme.palette.common.black, 0.12)}`
       }}
     >
       <Stack spacing={5}>
@@ -70,87 +66,52 @@ function PlanCard({ plan, cardIndex }) {
           <Typography variant="overline" sx={{ mb: 2, color: 'text.disabled', display: 'block' }}>
             REFERRAL
           </Typography>
-          <Typography variant="h4">{license}</Typography>
+          <Typography variant="h4" sx={{ color: 'white' }}>{license}</Typography>
         </div>
 
-        {cardIndex === 0 ? (
-          <Box component="img" src={icons[0]} sx={{ width: 40, height: 40 }} />
-        ) : (
-          <Stack direction="row" spacing={1}>
-            {icons.map((icon) => (
-              <Box key={icon} component="img" src={icon} sx={{ width: 40, height: 40 }} />
-            ))}
-          </Stack>
-        )}
+        <Stack direction="row" spacing={1}>
+          {icons.map((icon, index) => (
+            <Box key={index} component="img" src={icon} sx={{ width: 60, height: 60 }} />
+          ))}
+        </Stack>
 
         <Stack spacing={2.5}>
-          {commons.map((option) => (
-            <Stack key={option} spacing={1.5} direction="row" alignItems="center">
+          {commons.map((option, index) => (
+            <Stack key={index} spacing={1.5} direction="row" alignItems="center">
               <Box component={Icon} sx={{ color: 'primary.main', width: 20, height: 20 }} />
-              <Typography style={{ fontSize: 18 }}>{option}</Typography>
+              <Typography style={{ fontSize: 18, color: 'white' }}>{option}</Typography>
             </Stack>
           ))}
+        </Stack>
+        {indexp ===2 ? '' : <br />}
+        <Divider sx={{ borderStyle: 'dashed' }} />
 
-          <Divider sx={{ borderStyle: 'dashed' }} />
-
-          {options.map((option, optionIndex) => {
-            const disabledLine =
-              (cardIndex === 0 && optionIndex === 1) ||
-              (cardIndex === 0 && optionIndex === 2) ||
-              (cardIndex === 0 && optionIndex === 3) ||
-              (cardIndex === 1 && optionIndex === 3);
-
-            return (
-              <Stack
-                spacing={1.5}
-                direction="row"
-                alignItems="center"
+        <Stack spacing={2.5} alignItems="flex-end">
+          {options.map((option, index) => (
+            <Stack spacing={1.5} direction="row" alignItems="center" key={index}>
+              <Box
+                component={Icon}
+                icon={checkmarkFill}
                 sx={{
-                  ...(disabledLine && { color: 'text.disabled' })
+                  width: 20,
+                  height: 20,
+                  color: 'primary.main',
                 }}
-                key={option}
-              >
-                <Box
-                  component={Icon}
-                  icon={checkmarkFill}
-                  sx={{
-                    width: 20,
-                    height: 20,
-                    color: 'primary.main',
-                    ...(disabledLine && { color: 'text.disabled' })
-                  }}
-                />
-                <Typography variant="h2">{option}</Typography>
-              </Stack>
-            );
-          })}
-        </Stack>
+              />
+              <Typography variant="h5" sx={{ color: 'white' }}>{option}</Typography>
+            </Stack>
+          ))}
+          <Button
+  size="large"
+  target="_blank"
+  href="http://referral.microcollege.in/app"
+  sx={{ backgroundColor: 'white', color: '#29166F', borderColor: 'white', '&:hover': { backgroundColor: 'white', opacity: 0.7 } }}
+>
+  Refer Now
+</Button>
 
-        <Stack direction="row" justifyContent="flex-end">
-          {/* <Link
-            color="text.secondary"
-            underline="always"
-            target="_blank"
-            href="https://material-ui.com/store/license/#i-standard-license"
-            sx={{
-              typography: 'body2',
-              display: 'flex',
-              alignItems: 'center'
-            }}
-          >
-            Learn more <Icon icon={chevronRightFill} width={20} height={20} />
-          </Link> */}
-        </Stack>
 
-        <Button
-          size="large"
-          fullWidth
-          variant={cardIndex === 1 ? 'contained' : 'outlined'}
-          target="_blank"
-          href="https://material-ui.com/store/items/minimal-dashboard/"
-        >
-          Refer Now
-        </Button>
+        </Stack>
       </Stack>
     </Card>
   );
@@ -161,61 +122,18 @@ export default function LandingPricingPlans() {
     <RootStyle>
       <Container maxWidth="lg">
         <Box sx={{ mb: 10, textAlign: 'center' }}>
-          {/* <MotionInView variants={varFadeInUp}>
-            <Typography component="p" variant="overline" sx={{ mb: 2, color: 'text.secondary' }}>
-              pricing plans
-            </Typography>
-          </MotionInView> */}
-          <MotionInView variants={varFadeInDown}>
-            <Typography variant="h2" sx={{ mb: 3 }}>
-              Referral Plans
-            </Typography>
-          </MotionInView>
-          {/* <MotionInView variants={varFadeInDown}>
-            <Typography
-              sx={{
-                color: (theme) => (theme.palette.mode === 'light' ? 'text.secondary' : 'text.primary')
-              }}
-            >
-              Choose the perfect plan for your needs. Always flexible to grow
-            </Typography>
-          </MotionInView> */}
+          <Typography variant="h2" sx={{ mb: 3 }}>
+            Referral Plans
+          </Typography>
         </Box>
 
         <Grid container spacing={5}>
-          {PLANS.map((plan, index) => (
-            <Grid key={plan.license} item xs={12} md={6}>
-              <MotionInView variants={index === 1 ? varFadeInDown : varFadeInUp}>
-                <PlanCard plan={plan} />
-              </MotionInView>
+          {PLANS.map((plan, indexp) => (
+            <Grid key={plan.license} item xs={12} md={4}>
+              <PlanCard plan={plan} indexp={indexp } />
             </Grid>
           ))}
         </Grid>
-        <Faqs />
-
-        <MotionInView variants={varFadeIn}>
-          <Box sx={{ p: 5, mt: 10, textAlign: 'center' }}>
-            <MotionInView variants={varFadeInDown}>
-              <Typography variant="h3">Still have questions?</Typography>
-            </MotionInView>
-
-            <MotionInView variants={varFadeInDown}>
-              <Typography sx={{ mt: 3, mb: 5, color: 'text.secondary' }}>
-                Please describe your case to receive the most accurate advice.
-              </Typography>
-            </MotionInView>
-
-            <MotionInView variants={varFadeInUp}>
-              <Button
-                size="large"
-                variant="contained"
-                href="mailto:support@minimals.cc?subject=[Feedback] from Customer"
-              >
-                Contact us
-              </Button>
-            </MotionInView>
-          </Box>
-        </MotionInView>
       </Container>
     </RootStyle>
   );
